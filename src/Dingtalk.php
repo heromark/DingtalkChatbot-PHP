@@ -7,6 +7,8 @@
  * $ding->setLink($text,$title,$messageUrl,$picUrl)->send();
  * $ding->setMarkdown($text,$title)->send();
  *
+ * author: heromark
+ * email: heromark.myy@gmail.com
 **/
 
 namespace DingtalkChatbot;
