@@ -1,0 +1,20 @@
+{
+    "name": "heromark/dingtalk-chatbot-php",
+    "description": "钉钉群机器人消息发送",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "heromark",
+            "email": "heromark.myy@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Lib\\": "src/Lib",
+            "DingtalkChatbot\\": "src/"
+        }
+    },
+    "minimum-stability": "dev",
+    "require": {}
+}
