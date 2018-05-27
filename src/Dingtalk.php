@@ -15,8 +15,8 @@ namespace DingtalkChatbot;
 
 class Dingtalk
 {
-    const $ding_api = "https://oapi.dingtalk.com/robot/send?";
-    const $msg_types = ['text', 'link', 'markdown'];
+    const DING_API = "https://oapi.dingtalk.com/robot/send?";
+    const MSG_TYPES = ['text', 'link', 'markdown'];
 
     private $_message;  // 消息体
     private $_web_hook; // webhook
@@ -24,13 +24,13 @@ class Dingtalk
 
     public function __construct($access_token)
     {
-        $this->_web_hook = self::$ding_api . $access_token;
+        $this->_web_hook = self::DING_API . $access_token;
     }
 
     // 设置消息类型
     private function setMsgType($type)
     {
-        if (in_array($type, self::$msg_types)) {
+        if (in_array($type, self::MSG_TYPES)) {
             $this->_message['msgtype'] = $type; 
         }else{
             $this->_message['msgtype'] = 'text';

@@ -5,7 +5,7 @@
 安裝：使用 composer 安裝，通过 autoload 引用
 
 ``` 
-composer require "heromark/dingtalk-chatbot-php": "dev-master"
+composer require "heromark/dingtalk-chatbot-php"
 
 ```
 
