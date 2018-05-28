@@ -15,7 +15,7 @@ namespace DingtalkChatbot;
 
 class Dingtalk
 {
-    const DING_API = "https://oapi.dingtalk.com/robot/send?";
+    const DING_API = "https://oapi.dingtalk.com/robot/send";
     const MSG_TYPES = ['text', 'link', 'markdown'];
 
     private $_message;  // 消息体
@@ -24,7 +24,7 @@ class Dingtalk
 
     public function __construct($access_token)
     {
-        $this->_web_hook = self::DING_API . $access_token;
+        $this->_web_hook = self::DING_API .'?access_token='. $access_token;
     }
 
     // 设置消息类型
@@ -42,7 +42,7 @@ class Dingtalk
     {
         $this->setMsgType('text');
         if (empty($text)) {
-            return '内容不能为空';
+            self::showMsg(null, 0, '内容不能为空');exit;
         }
         $this->_message['text'] = ['content' => $text];
         if (!empty($atMobiles)) {
@@ -61,19 +61,19 @@ class Dingtalk
         $this->setMsgType('link');
 
         if (empty($text)) {
-            return '内容不能为空';
+            self::showMsg(null, 0, '内容不能为空');exit;
         }else{
             $this->_message['link']['text'] = $text;
         }
 
         if (empty($title)) {
-            return '标题不能为空';
+            self::showMsg(null, 0, '标题不能为空');exit;
         }else{
             $this->_message['link']['title'] = $title;
         }
 
         if (empty($messageUrl)) {
-            return '跳转链接不能为空';
+            self::showMsg(null, 0, '跳转链接不能为空');exit;
         }else{
             $this->_message['link']['messageUrl'] = $messageUrl;
         }
@@ -91,13 +91,13 @@ class Dingtalk
         $this->setMsgType('markdown');
 
         if (empty($text)) {
-            return '内容不能为空';
+            self::showMsg(null, 0, '内容不能为空');exit;
         }else{
             $this->_message['markdown']['text'] = $text;
         }
 
         if (empty($title)) {
-            return '标题不能为空';
+            self::showMsg(null, 0, '标题不能为空');exit;
         }else{
             $this->_message['markdown']['title'] = $title;
         }
@@ -131,9 +131,20 @@ class Dingtalk
                
         $ret = json_decode($res,true);
         if($ret['errmsg'] != 'ok'){
-            return false;
+            self::showMsg($ret, 0, '发送失败');exit;
         }
 
-        return true;
+        self::showMsg($ret, 1, '发送成功');
+    }
+
+    private function showMsg($res, $state = 0, $msg = '')
+    {
+        // 构造数据
+        $item = ['msg' => $msg, 'res' => null, 'state' =>(int)$state];
+        is_array($res) && $item['res'] = $res;
+
+        //编码
+        $item = json_encode($item);
+        echo "{$item}";
     }
 }
